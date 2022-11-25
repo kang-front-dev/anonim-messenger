@@ -1,0 +1,36 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  min-height: 100vh;
+  background: linear-gradient(135deg,#D3CCE3,#E9E4F0);
+  padding: 50px 0;
+}
+.App{
+  max-width: 1000px;
+  width: fit-content;
+  margin: 0 auto;
+  border-radius: 10px;
+  background: #FFFFFF;
+  padding: 20px;
+  font-family: 'Roboto';
+  box-shadow: 2px 2px 8px 4px rgba(0, 0, 0, 0.07);
+}
+.container{
+  width: 100%;
+}
+.nav{
+  min-width: 400px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 20px;
+}
+.page_title{
+  font-size: 40px;
+  margin-bottom: 12px;
+}
