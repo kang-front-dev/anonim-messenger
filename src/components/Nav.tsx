@@ -1,5 +1,4 @@
-import React, { useContext, useEffect } from 'react';
-import Chip from '@mui/material/Chip';
+import React, { useContext } from 'react';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../components/UserContext';
