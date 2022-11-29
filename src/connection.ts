@@ -1,1 +1,1 @@
-export const connection = `http://localhost:5000`
+export const connection = `https://anonymous-messenger-server-production.up.railway.app`
