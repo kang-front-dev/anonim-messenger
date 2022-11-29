@@ -16,11 +16,8 @@ export default function Login() {
   const navigate = useNavigate();
   const { setIsAuth, setUsername, setAvatarColor } = useContext(UserContext);
   const {
-    open,
     setOpen,
-    alertMessage,
     setAlertMessage,
-    severity,
     setSeverity,
   } = useContext(SnackbarContext);
   const [name, setName] = useState('');

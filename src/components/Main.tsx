@@ -37,6 +37,7 @@ export default function Main() {
         setDataUpdated(false);
       }, 2000);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataUpdated]);
 
   async function update() {
@@ -59,6 +60,7 @@ export default function Main() {
           } else if (b.messages.length! > 0) {
             return -1;
           }
+          return 0
         });
         if (sortedChats.length < 1) {
           setChats([]);

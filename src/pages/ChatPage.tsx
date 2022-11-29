@@ -17,12 +17,12 @@ import { calculateCurrentDay, getToday } from '../components/TimeFuncs';
 
 export default function Chat() {
   const navigate = useNavigate();
-  const { id, name } = useParams();
+  const { name } = useParams();
   // const paramsId = id ? id : '';
   const paramsName: string = name ? name : '';
 
   const [friendInfo, setFriendInfo] = useState<IUser>();
-  const [dataUpdated, setDataUpdated] = useState(false);
+  const dataUpdated = false
   const [messages, setMessages] = useState<Array<IMessage>>([]);
   const [messageValue, setMessageValue] = useState('');
   const { username, isAuth } = useContext(UserContext);
@@ -31,6 +31,7 @@ export default function Chat() {
     if (!dataUpdated) {
       updateInfo();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataUpdated]);
 
   async function updateInfo() {
