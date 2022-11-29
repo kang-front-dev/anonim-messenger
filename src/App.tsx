@@ -1,44 +1,62 @@
 import { Routes, Route } from 'react-router-dom';
-import React, {
-  useState,
-  createContext,
-} from 'react';
+import React, { useState } from 'react';
 import Main from './components/Main';
-import Chat from './pages/Chat';
+import Chat from './pages/ChatPage';
 import Layout from './pages/Layout';
 import Login from './pages/Login';
 import { User } from './components/User';
 
-export const Context = createContext(
-  new User({
-    isAuth: false,
-    setIsAuth: function returnFalse() {
-      return false;
-    },
-    username: 'Unknown',
-    setUsername: function returnFalse() {
-      return false;
-    },
-  })
-);
+import { UserContext } from './components/UserContext';
+import { SnackbarContext } from './components/SnackbarContext';
+import { Snackbar } from './components/Snackbar';
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
   const [username, setUsername] = useState('Unknown');
+  const [chats, setChats] = useState([]);
 
+  const [open, setOpen] = React.useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+  const [severity, setSeverity] = useState('success');
+  const [avatarColor, setAvatarColor] = useState('#808080');
   return (
-    <Context.Provider
-      value={new User({ isAuth, setIsAuth, username, setUsername })}
+    <UserContext.Provider
+      value={
+        new User({
+          isAuth,
+          setIsAuth,
+          username,
+          setUsername,
+          avatarColor,
+          setAvatarColor,
+          chats,
+          setChats,
+        })
+      }
     >
-      <div className="App">
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route path="/chat/:id" element={<Chat />} />
-            <Route path="/login" element={<Login />} />
-          </Route>
-        </Routes>
-      </div>
-    </Context.Provider>
+      <SnackbarContext.Provider
+        value={
+          new Snackbar({
+            open,
+            setOpen,
+            alertMessage,
+            setAlertMessage,
+            severity,
+            setSeverity,
+          })
+        }
+      >
+        <div className="App">
+          <Routes>
+            <Route element={<Layout />}>
+              <Route index path="/" element={<Main />} />
+              <Route path="/chat/:id/:name" element={<Chat />} />
+              <Route path="/login" element={<Login />} />
+            </Route>
+          </Routes>
+        </div>
+      </SnackbarContext.Provider>
+    </UserContext.Provider>
   );
 }
 

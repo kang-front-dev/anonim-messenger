@@ -5,42 +5,29 @@ import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert, { AlertProps, AlertColor } from '@mui/material/Alert';
 
-import { Context } from '../App';
+import { UserContext } from '../components/UserContext';
+import { SnackbarContext } from '../components/SnackbarContext';
 
-const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
-  props,
-  ref
-) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
+import { stringToColor } from '../components/materialFunc';
+import { Grid } from '@mui/material';
 
 export default function Login() {
   const navigate = useNavigate();
-  const { setIsAuth } = useContext(Context);
-
+  const { setIsAuth, setUsername, setAvatarColor } = useContext(UserContext);
+  const {
+    open,
+    setOpen,
+    alertMessage,
+    setAlertMessage,
+    severity,
+    setSeverity,
+  } = useContext(SnackbarContext);
   const [name, setName] = useState('');
-
-  const [open, setOpen] = React.useState(false);
-  const [alertMessage, setAlertMessage] = useState('');
-  const [severity, setSeverity] = useState('success');
 
   const handleClick = (message: string) => {
     setAlertMessage(message);
     setOpen(true);
-  };
-
-  const handleClose = (
-    event?: React.SyntheticEvent | Event,
-    reason?: string
-  ) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    setOpen(false);
   };
 
   function login(username: string) {
@@ -49,10 +36,12 @@ export default function Login() {
         'Content-type': 'application/json',
       },
       method: 'PATCH',
-      body: JSON.stringify({ name: username }),
+      body: JSON.stringify({
+        name: username,
+        avatarColor: stringToColor(username),
+      }),
     })
       .then((res) => {
-        console.log(res);
         return res.json();
       })
       .catch((err) => console.log(err));
@@ -67,10 +56,12 @@ export default function Login() {
       noValidate
       autoComplete="off"
       style={{
+        width: '225px',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         padding: '40px 0',
+        margin: '0 auto',
       }}
     >
       <h2 className="page_title">Login</h2>
@@ -82,35 +73,61 @@ export default function Login() {
         onInput={(e) => {
           setName((e.target as HTMLInputElement).value);
         }}
-        style={{ marginLeft: '0' }}
       />
-      <Button
-        variant="contained"
-        style={{ padding: '4px 20px', marginRight: '10px', marginTop: '10px' }}
-        onClick={async () => {
-          const result = await login(name);
-          console.log(result, 'login result');
+      <Grid container columns={10} columnSpacing={1} style={{ width: '100%' }}>
+        <Grid item xs={4}>
+          <Button
+            variant="contained"
+            style={{
+              width: '100%',
+              padding: '4px 0px',
+              marginTop: '10px',
+              backgroundColor: '#676767',
+            }}
+            onClick={async () => {
+              navigate('/');
+            }}
+          >
+            Back
+          </Button>
+        </Grid>
+        <Grid item xs={6}>
+          <Button
+            variant="contained"
+            style={{
+              width: '100%',
+              padding: '4px 0px',
+              display: 'inline-block',
+              marginTop: '10px',
+            }}
+            onClick={async () => {
+              if (name) {
+                if (name !== 'Unknown') {
+                  const result = await login(name);
+                  console.log(result, 'login result');
 
-          if (result.success) {
-            setIsAuth(true);
-            navigate('/');
-          } else {
-            setSeverity('error');
-            handleClick(result.message);
-          }
-        }}
-      >
-        Continue
-      </Button>
-      <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
-        <Alert
-          onClose={handleClose}
-          severity={severity as AlertColor}
-          sx={{ width: '100%' }}
-        >
-          {alertMessage}
-        </Alert>
-      </Snackbar>
+                  if (result.success) {
+                    setIsAuth(true);
+                    handleClick(result.message);
+                    setAvatarColor(result.avatarColor);
+                    setSeverity('success');
+                    setUsername(name);
+                    navigate('/');
+                  } else {
+                    setSeverity('error');
+                    handleClick(result.message);
+                  }
+                }else{
+                  setSeverity('error');
+                  handleClick('This username is reserved for default.');
+                }
+              }
+            }}
+          >
+            Continue
+          </Button>
+        </Grid>
+      </Grid>
     </Box>
   );
 }

@@ -1,20 +1,34 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Chip from '@mui/material/Chip';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
-import {Context} from '../App'
+import { UserContext } from '../components/UserContext';
+import { Avatar } from '@mui/material';
 
 export default function Nav() {
   const navigate = useNavigate();
-  const {isAuth,setIsAuth,username} = useContext(Context)
+  const { isAuth, setIsAuth, username, setUsername, avatarColor } =
+    useContext(UserContext);
   return (
     <div className="nav">
+      <div className="nav_about">
+        <Avatar
+          style={{ backgroundColor: avatarColor }}
+          children={username[0].toUpperCase()}
+          sx={{
+            width: 35,
+            height: 35,
+          }}
+        />
+        <h4 className="nav_name">{username}</h4>
+      </div>
       {isAuth ? (
         <Button
           variant="outlined"
-          style={{ padding: '4px 20px', marginRight: '10px' }}
-          onClick={()=>{
-            setIsAuth(false)
+          style={{ padding: '4px 20px',}}
+          onClick={() => {
+            setIsAuth(false);
+            setUsername('Unknown');
           }}
         >
           Logout
@@ -22,17 +36,12 @@ export default function Nav() {
       ) : (
         <Button
           variant="contained"
-          style={{ padding: '4px 20px', marginRight: '10px' }}
+          style={{ padding: '4px 20px',}}
           onClick={() => navigate('/login')}
         >
           Login
         </Button>
       )}
-      <Chip
-        label={username}
-        variant="outlined"
-        style={{ borderRadius: '5px', padding: '5px 0px', fontSize: '15px' }}
-      />
     </div>
   );
 }
