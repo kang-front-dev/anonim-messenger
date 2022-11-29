@@ -199,10 +199,14 @@ body {
         font-weight: 600;
       }
       &_descr {
+        width: 300px;
         font-size: 15px;
         line-height: 15px;
         font-weight: 400;
         color: gray;
+        white-space: nowrap; 
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       &_date {
         font-size: 13px;
