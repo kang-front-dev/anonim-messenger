@@ -6,7 +6,7 @@
 
 body {
   min-height: 100vh;
-  background: linear-gradient(135deg, #536976, #292e49);
+  background: #e0e0e0;
   padding: 50px 0;
 }
 #root {
@@ -17,10 +17,10 @@ body {
   position: relative;
   width: 450px;
   border-radius: 10px;
-  background: #ffffff;
+  background: #e0e0e0;
 
   font-family: 'Roboto';
-  box-shadow: 2px 2px 8px 4px rgba(0, 0, 0, 0.07);
+  box-shadow: 4px 4px 6px #bebebe, -4px -4px 6px #ffffff;
 
   overflow: hidden;
 }
@@ -34,7 +34,6 @@ body {
   align-items: center;
   justify-content: space-between;
   padding: 20px;
-  border-bottom: 1px rgba(128, 128, 128, 0.177) solid;
   &_about {
     display: flex;
     align-items: center;
@@ -58,13 +57,13 @@ body {
 .chat {
   display: flex;
   flex-direction: column;
-  min-height: 500px;
+  height: 500px;
   width: 100%;
   &_wrapper {
     width: 100%;
     display: flex;
     flex-direction: column;
-    background: rgb(255, 255, 255);
+    background: #e0e0e0;
     padding-top: 20px;
   }
   &_nav {
@@ -76,11 +75,11 @@ body {
   &_message {
     max-width: 90%;
     padding: 10px 17px;
-    border-radius: 22.5px;
-    color: rgb(255, 255, 255);
-    background: rgb(48, 110, 255);
+    border-radius: 10px;
+    color: #808080;
+    background: #e0e0e0;
+    box-shadow: 2px 2px 4px #bebebe, -2px -2px 4px #ffffff;
     display: flex;
-    align-content: stretch;
     position: relative;
     column-gap: 10px;
     animation: fadeIn 0.15s ease-in-out;
@@ -97,78 +96,31 @@ body {
     }
     &.me {
       align-self: flex-end;
-      &::after {
-        content: '';
-        position: absolute;
-        z-index: 1;
-        bottom: 0;
-        right: -12px;
-        width: 12px;
-        height: 24px;
-        background: white;
-        border-bottom-left-radius: 10px;
-      }
-      &::before {
-        content: '';
-        position: absolute;
-        z-index: 0;
-        bottom: 0;
-        right: -12px;
-        height: 24px;
-        width: 24px;
-        background: rgb(48, 110, 255);
-        border-bottom-left-radius: 15px;
-      }
     }
     &.your {
       align-self: flex-start;
-      &::after {
-        content: '';
-        position: absolute;
-        z-index: 1;
-        bottom: 0;
-        left: -12px;
-        width: 12px;
-        height: 24px;
-        background: white;
-        border-bottom-right-radius: 10px;
-      }
-      &::before {
-        content: '';
-        position: absolute;
-        z-index: 0;
-        bottom: 0;
-        left: -12px;
-        height: 24px;
-        width: 24px;
-        background: rgb(48, 110, 255);
-        border-bottom-right-radius: 15px;
-      }
     }
     &_container {
-      max-height: 500px;
-      padding: 7px;
-      flex-grow: 1;
+      width: 100%;
+      height: 100%;
+      padding: 10px;
+
       display: flex;
       flex-direction: column;
-      align-content: space-between;
-      align-items: center;
-      justify-content: flex-end;
-      row-gap: 7px;
+
+      row-gap: 14px;
       overflow-y: scroll;
-      overflow-x: hidden;
-      position: relative;
-      &::-webkit-scrollbar {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        right: 0;
+
+      border-radius: 10px;
+      box-shadow: inset 2px 2px 4px #bebebe,inset -2px -2px 4px #ffffff;
+      &::-webkit-scrollbar{
         width: 10px;
-        background: rgb(255, 255, 255);
+        background: none;
       }
-      &::-webkit-scrollbar-thumb {
-        background: rgb(193, 193, 193);
-        border-radius: 15px;
+      &::-webkit-scrollbar-thumb{
+        border-radius: 4px;
+        width: 10px;
+        background: #cbcbcb;
       }
     }
   }
@@ -179,12 +131,13 @@ body {
     outline: none;
     font-size: 18px;
     padding: 20px 10px;
+    background: #e0e0e0;
     &_block {
       display: flex;
       justify-content: space-between;
       align-items: center;
       color: rgb(0, 119, 255);
-      background: white;
+      background: #e0e0e0;
     }
   }
 
@@ -204,7 +157,7 @@ body {
         line-height: 15px;
         font-weight: 400;
         color: gray;
-        white-space: nowrap; 
+        white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
       }
@@ -266,5 +219,15 @@ body {
   }
   100% {
     opacity: 1;
+  }
+}
+
+.form {
+  &_btn {
+    &-back,&-enter {
+      background: #e0e0e0;
+      color: #808080;
+      box-shadow: 2px 2px 4px #bebebe, -2px -2px 4px #ffffff;
+    }
   }
 }
