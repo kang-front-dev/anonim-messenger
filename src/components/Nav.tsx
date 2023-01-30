@@ -23,13 +23,8 @@ export default function Nav() {
       </div>
       {isAuth ? (
         <Button
-          variant="contained"
-          style={{
-            padding: '4px 20px',
-            background: '#e0e0e0',
-            boxShadow: '2px 2px 4px #bebebe,-2px -2px 4px #ffffff',
-            color: '#808080',
-          }}
+          variant="outlined"
+          style={{ padding: '4px 20px' }}
           onClick={() => {
             setIsAuth(false);
             setUsername('Unknown');
@@ -40,12 +35,7 @@ export default function Nav() {
       ) : (
         <Button
           variant="contained"
-          style={{
-            padding: '4px 20px',
-            background: '#e0e0e0',
-            boxShadow: '2px 2px 4px #bebebe,-2px -2px 4px #ffffff',
-            color: '#808080',
-          }}
+          style={{ padding: '4px 20px' }}
           onClick={() => navigate('/login')}
         >
           Login

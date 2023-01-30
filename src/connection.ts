@@ -1,1 +1,1 @@
-export const connection = `https://anonymous-messenger-server-production.up.railway.app`
+export const connection = `https://puce-nutty-nematode.cyclic.app`

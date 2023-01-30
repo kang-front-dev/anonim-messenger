@@ -15,7 +15,11 @@ import { Grid } from '@mui/material';
 export default function Login() {
   const navigate = useNavigate();
   const { setIsAuth, setUsername, setAvatarColor } = useContext(UserContext);
-  const { setOpen, setAlertMessage, setSeverity } = useContext(SnackbarContext);
+  const {
+    setOpen,
+    setAlertMessage,
+    setSeverity,
+  } = useContext(SnackbarContext);
   const [name, setName] = useState('');
 
   const handleClick = (message: string) => {
@@ -75,9 +79,7 @@ export default function Login() {
               width: '100%',
               padding: '4px 0px',
               marginTop: '10px',
-              backgroundColor: '#e0e0e0',
-              boxShadow: '2px 2px 4px #bebebe,-2px -2px 4px #ffffff',
-              color: '#808080',
+              backgroundColor: '#676767',
             }}
             onClick={async () => {
               navigate('/');
@@ -94,9 +96,6 @@ export default function Login() {
               padding: '4px 0px',
               display: 'inline-block',
               marginTop: '10px',
-              backgroundColor: '#e0e0e0',
-              boxShadow: '2px 2px 4px #bebebe,-2px -2px 4px #ffffff',
-              color: '#808080',
             }}
             onClick={async () => {
               if (name) {
@@ -115,7 +114,7 @@ export default function Login() {
                     setSeverity('error');
                     handleClick(result.message);
                   }
-                } else {
+                }else{
                   setSeverity('error');
                   handleClick('This username is reserved for default.');
                 }

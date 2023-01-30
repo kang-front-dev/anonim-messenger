@@ -215,15 +215,13 @@ export default function Main() {
                       }}
                     >
                       <Paper
-                        elevation={0}
+                        elevation={1}
                         style={{
                           width: '100%',
                           padding: '10px 14px',
                           display: 'flex',
                           alignItems: 'center',
-                          justifyContent: 'space-between',
-                          backgroundColor: '#e0e0e0',
-                          boxShadow: '2px 2px 4px #bebebe,-2px -2px 4px #ffffff',
+                          justifyContent: 'space-between'
                         }}
                       >
                         <div className='chat_card_left'>
