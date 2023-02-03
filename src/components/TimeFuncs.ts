@@ -11,7 +11,7 @@ export function getTimeWeight(timeProps: ITime) {
   const time = timeProps.time;
   const dayMonthYear = timeProps.dayMonthYear.split(':');
   const day = Number(dayMonthYear[0]);
-  const month = Number(dayMonthYear[1]);
+  const month = Number(dayMonthYear[1]) + 1;
   const year = Number(dayMonthYear[2]);
 
   const isLeap = year % 4 === 0 ? true : false;
@@ -57,27 +57,33 @@ export function getToday() {
     dayMonthYear: currentDate,
   };
 }
-export function calculateCurrentDay(timeProps: ITime, wantToKnowYesterday?) {
-  const today = getToday();
-  const todayWeight = getTimeWeight(today);
-  const requestWeight = getTimeWeight(timeProps);
-  const result = todayWeight - requestWeight > 172800 ? true : false;
-  const calculateYesterday = wantToKnowYesterday ? wantToKnowYesterday : true
-  if (!calculateYesterday) {
-    if (result) {
-      return timeProps.dayMonthYear;
-    } else {
-      return `${timeProps.time.hours}:${
-        Number(timeProps.time.minutes) < 10
-          ? `0${timeProps.time.minutes}`
-          : timeProps.time.minutes
-      }`;
-    }
-  } else {
-    return `${timeProps.time.hours}:${
-      Number(timeProps.time.minutes) < 10
-        ? `0${timeProps.time.minutes}`
-        : timeProps.time.minutes
-    }`;
+export function checkDate(timeProps: ITime) {
+  const currentDate = getToday();
+  const currentDayWeight =
+    Number(currentDate.time.hours) * 60 * 60 +
+    Number(currentDate.time.minutes) * 60 +
+    Number(currentDate.time.seconds);
+  const defaultDayWeight = 172800;
+  const currentDateWeight = getTimeWeight(currentDate);
+  const chatDateWeight = getTimeWeight(timeProps);
+
+  let resultDate =
+    currentDateWeight - chatDateWeight < currentDayWeight
+      ? `${timeProps.time.hours}:${timeProps.time.minutes}`
+      : `yesterday`;
+
+  if (
+    currentDateWeight - chatDateWeight >
+    currentDayWeight + defaultDayWeight
+  ) {
+    const dateTemp = timeProps.dayMonthYear.split(':');
+    const day = Number(dateTemp[0]) < 10 ? `0${dateTemp[0]}` : dateTemp[0];
+    const month =
+      Number(dateTemp[1]) < 10
+        ? `0${Number(dateTemp[1]) + 1}`
+        : Number(dateTemp[1]) + 1;
+    resultDate = `${day}/${month}/${dateTemp[2]}`;
   }
+
+  return resultDate;
 }

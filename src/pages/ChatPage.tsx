@@ -12,8 +12,7 @@ import Skeleton from '@mui/material/Skeleton';
 import { getUser, updateUser } from '../api/Api';
 import { IMessage } from '../components/Chat';
 import { IUser } from '../components/User';
-import { calculateCurrentDay, getToday } from '../components/TimeFuncs';
-
+import { getToday } from '../components/TimeFuncs';
 
 export default function Chat() {
   const navigate = useNavigate();
@@ -22,7 +21,7 @@ export default function Chat() {
   const paramsName: string = name ? name : '';
 
   const [friendInfo, setFriendInfo] = useState<IUser>();
-  const dataUpdated = false
+  const dataUpdated = false;
   const [messages, setMessages] = useState<Array<IMessage>>([]);
   const [messageValue, setMessageValue] = useState('');
   const { username, isAuth } = useContext(UserContext);
@@ -31,7 +30,7 @@ export default function Chat() {
     if (!dataUpdated) {
       updateInfo();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataUpdated]);
 
   async function updateInfo() {
@@ -205,7 +204,7 @@ export default function Chat() {
                   }`}
                 >
                   <p className="chat_message_text">{item.content}</p>
-                  <h4 className="chat_message_date">{calculateCurrentDay(item.date,false)}</h4>
+                  <h4 className="chat_message_date">{`${item.date.time.hours}:${item.date.time.minutes}`}</h4>
                 </div>
               );
             })

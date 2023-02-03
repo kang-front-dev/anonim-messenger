@@ -199,7 +199,8 @@ body {
         font-weight: 600;
       }
       &_descr {
-        width: 300px;
+        flex-grow: 1;
+        max-width: 240px;
         font-size: 15px;
         line-height: 15px;
         font-weight: 400;

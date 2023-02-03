@@ -13,7 +13,7 @@ import TextField from '@mui/material/TextField';
 import { UserContext } from './UserContext';
 import { getUser, updateUser } from '../api/Api';
 import { IChat } from './Chat';
-import { calculateCurrentDay, getTimeWeight } from './TimeFuncs';
+import { checkDate, getTimeWeight } from './TimeFuncs';
 
 export default function Main() {
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ export default function Main() {
         setDataUpdated(false);
       }, 2000);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataUpdated]);
 
   async function update() {
@@ -60,7 +60,7 @@ export default function Main() {
           } else if (b.messages.length! > 0) {
             return -1;
           }
-          return 0
+          return 0;
         });
         if (sortedChats.length < 1) {
           setChats([]);
@@ -221,10 +221,10 @@ export default function Main() {
                           padding: '10px 14px',
                           display: 'flex',
                           alignItems: 'center',
-                          justifyContent: 'space-between'
+                          justifyContent: 'space-between',
                         }}
                       >
-                        <div className='chat_card_left'>
+                        <div className="chat_card_left">
                           <Avatar
                             children={item.friendName[0].toUpperCase()}
                             style={{
@@ -256,9 +256,7 @@ export default function Main() {
                         </div>
                         <p className="chat_card_user_date">
                           {item.messages.length > 0
-                            ? calculateCurrentDay(
-                                item.messages[item.messages.length - 1].date
-                              )
+                            ? checkDate(item.messages[item.messages.length - 1].date)
                             : ''}
                         </p>
                       </Paper>
